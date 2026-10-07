@@ -125,18 +125,16 @@ You should see `"state": "RUNNING"` for both the connector and its task.
 
 ## Testing
 
-### What's already there
+### Assessment coverage
 
-The codebase ships with **unit tests** across all three tiers and scaffolding for more advanced testing types. The intent is that the QA team uses this as a starting point and builds out coverage from here.
+The assessment adds focused automated coverage at the domain, React component, and full-system levels.
 
 | Layer | Framework | Status |
 |-------|-----------|--------|
-| Backend unit tests | JUnit 5, Mockito, AssertJ | Provided — some may need fixing |
-| Frontend unit tests | Vitest, Testing Library | Provided |
-| E2E tests | Playwright | Scaffolded — empty |
-| Contract tests | Pact | Scaffolded — empty |
-| Integration tests | Testcontainers | Scaffolded — empty |
-| Architecture tests | ArchUnit | Provided |
+| Claims domain tests | JUnit 5, AssertJ | 16 validation and lifecycle tests |
+| React component tests | Vitest, Testing Library | 3 claim-wizard behaviour tests |
+| E2E tests | Playwright | Authentication, authorization, and claim lifecycle |
+| Contract, Kafka, and load tests | Deferred | Prioritized in the test strategy |
 
 ### What's been disabled
 
@@ -150,34 +148,16 @@ To keep the build simple and focused on the app itself, the following have been 
 | Kafka schema validation | `kafka.producer.schema-validation.enabled=false` | Schema files exist in `asyncapi/schemas/` |
 | Checkstyle / PMD | Skipped in Docker build | Still runs locally via `mvn verify` |
 
-### QA team scope
+### Assessment documentation
 
-The app is a blank canvas for testing. Suggested areas:
+The rationale, exclusions, findings, AI decisions, and exact commands are documented in:
 
-- Fix and extend unit tests (a broken test exists as a starting point)
-- Add integration tests using Testcontainers
-- Build out Pact contract tests between BFF and Claims Service
-- Write Playwright E2E tests for the main user journeys
-- Add load/performance tests (K6, Gatling, etc.)
-- Create a test strategy document
-- Write manual test scripts
+- [`TEST_STRATEGY.md`](TEST_STRATEGY.md)
+- [`BUGS.md`](BUGS.md)
+- [`AI_JOURNAL.md`](AI_JOURNAL.md)
+- [`TESTING.md`](TESTING.md)
 
-### Run existing unit tests
-
-```bash
-# Backend
-cd code/claims-service && mvn test
-cd code/bff-service && mvn test
-
-# Frontend
-cd code/demo-app-ui && npm test
-```
-
-### Run E2E tests (requires full stack running)
-
-```bash
-cd code/demo-app-ui && npx playwright test
-```
+Run the Java, React, and Playwright layers separately using the commands in `TESTING.md`. Playwright requires the full Docker stack; the Java and React suites do not.
 
 ---
 
