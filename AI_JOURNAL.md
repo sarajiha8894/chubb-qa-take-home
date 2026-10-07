@@ -48,7 +48,7 @@
 
 **Refined:** Playwright strict-mode failures revealed ambiguous accessible names (`Password`, `Next`, and `Submit Claim`). Selectors were narrowed to exact names or the relevant wizard container. Direct navigation to the protected form removed an unreliable client-side navigation step from the main business-flow test.
 
-**Verification:** The original authorization and claim-lifecycle journeys passed. The invalid-credentials scenario confirmed a `401` response and the expected error message; its ambiguous Next.js alert locator was narrowed and requires a final rerun before submission.
+**Verification:** All three Playwright scenarios passed. The invalid-credentials scenario passed after its locator was narrowed to the alert containing the expected error message.
 
 ## Local test execution
 
