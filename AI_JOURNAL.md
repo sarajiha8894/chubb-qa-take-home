@@ -50,6 +50,32 @@
 
 **Verification:** The original authorization and claim-lifecycle journeys passed. The invalid-credentials scenario confirmed a `401` response and the expected error message; its ambiguous Next.js alert locator was narrowed and requires a final rerun before submission.
 
+## Local test execution
+
+**Prompt/goal:** Provide one command that runs the Java, React component, and Playwright suites.
+
+**Accepted initially:** A PowerShell runner was created to execute the three layers in sequence and stop after the first failure.
+
+**Challenged or changed:** Running Maven while Docker Desktop and the application containers were active caused Windows to reject a forked Surefire JVM because the paging file was too small. This was an environment resource failure rather than a test assertion or application defect. The final documented approach runs each test layer separately, with Docker required only for Playwright.
+
+**Reasoning:** Separate commands use fewer local resources, make the failing layer immediately clear, and avoid coupling fast unit and component tests to the Docker environment.
+
+## Authentication coverage
+
+**Prompt/goal:** Determine whether invalid login credentials were covered and add the missing scenario.
+
+**Accepted:** Add a Playwright test using a real account email and an incorrect password. Assert the `401` response, visible error message, unchanged login URL, and rejection from a protected route.
+
+**Refined:** The first run found two elements with `role="alert"`: the actual login error and Next.js's empty route announcer. The locator was narrowed to the alert containing `Invalid email or password`. The failure improved the selector and did not expose a product defect.
+
+## Git history
+
+**Prompt/goal:** Prepare a meaningful commit history for a supplied archive that did not contain Git history.
+
+**Accepted:** Organize the final repository into logical checkpoints for the supplied application baseline, Java domain tests, frontend component/E2E tests, and assessment documentation.
+
+**Reviewed:** Generated output such as `node_modules`, Maven `target`, Playwright reports, test results, logs, and TypeScript build metadata is excluded from version control.
+
 ## Human sign-off
 
 AI-generated changes were reviewed against the application source and executed locally. Suggestions were changed when they conflicted with installed dependencies or selected ambiguous UI elements. The submitted scope and deferred areas remain the candidate's responsibility to explain during the walkthrough.
