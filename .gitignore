@@ -1,0 +1,11 @@
+.DS_Store
+**/.DS_Store
+**/node_modules/
+**/.next/
+**/target/
+**/coverage/
+**/test-results/
+**/playwright-report/
+**/blob-report/
+*.log
+*.tsbuildinfo
